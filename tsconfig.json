@@ -17,7 +17,7 @@
     "paths": {
       "@filters/*": ["./src/filters/*"],
       "@guards/*": ["./src/guards/*"],
-      "@interfaces/*": ["./src/interfaces/*"],
+      "@interfaces/*": ["./src/infrastructure/interfaces/*"],
       "@shared/*": ["./src/components/shared/*"],
       "@components/*": ["./src/components/*"],
       "@pipes/*": ["./src/pipes/*"],

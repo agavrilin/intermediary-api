@@ -4,14 +4,13 @@ import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, ValidationError } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import ValidationExceptions from './exceptions/validation.exceptions';
 
-import AppModule from './routes/app/app.module';
-
-import AllExceptionsFilter from './filters/all-exceptions.filter';
+import AppModule from './app.module';
+import ValidationExceptions from './infrastructure/exceptions/validation.exceptions';
+import AllExceptionsFilter from './infrastructure/filters/all-exceptions.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule.foorRoot());
 
   app.useGlobalPipes(new ValidationPipe({
     exceptionFactory: (errors: ValidationError[]) => new ValidationExceptions(errors),
@@ -31,7 +30,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(port, async () => {
-    console.log(`The server is running on ${port} port: http://localhost:${port}/api`);
+    console.log(`The server is running on ${port} port: http://localhost:${port}`);
   });
 }
 bootstrap();
