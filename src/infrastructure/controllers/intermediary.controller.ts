@@ -18,6 +18,7 @@ import Intermediary from '../../domain/intermediary';
 import CreateIntermediaryUseCase from '../../application/usecases/intermediary/create.usecase';
 import DeleteIntermediaryUseCase from '../../application/usecases/intermediary/delete.usecase';
 import UpdateIntermediaryUseCase from '../../application/usecases/intermediary/update.usecase';
+import CreateIntermediaryDto from '../dtos/intermediary/create.dto';
 
 @Controller('intermediary/')
 export default class IntermediaryController {
@@ -47,9 +48,11 @@ export default class IntermediaryController {
   @Post()
   public async createIntermediary(
     @Res() response: Response,
-    @Body() intermediary: IntermediaryCommand,
+    @Body() intermediary: CreateIntermediaryDto,
   ): Promise<any> {
-    const intermediaryCreated = await this.createIntermediaryUseCase.handler(intermediary);
+    const intermediaryCommand: IntermediaryCommand = intermediary;
+
+    const intermediaryCreated = await this.createIntermediaryUseCase.handler(intermediaryCommand);
     return response.status(HttpStatus.CREATED).json(intermediaryCreated);
   }
 

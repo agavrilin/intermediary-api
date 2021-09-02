@@ -1,6 +1,6 @@
 import IntermediaryRangeTypeException from './exceptions/intermediary-range-type.exception';
 
-const IntermediaryTypeEnum = {
+export const IntermediaryTypeEnum = {
   range: 'range',
   dropdown: 'dropdown',
 };
@@ -73,10 +73,11 @@ export default class Intermediary {
         );
       }
 
-      const diff = (to - from) % step;
-      if (diff > 0) {
+      const diff = (to * 1000000 - from * 1000000) % (step * 1000000);
+
+      if (diff !== 0) {
         throw new IntermediaryRangeTypeException(
-          'Error',
+          'From|To|Step value is not valid',
         );
       }
     }
